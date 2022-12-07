@@ -34,6 +34,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               release_id: res.data.id,
+              name: 'file1.txt',
               data: fs.readFileSync('dist/file1.txt'),
             });
             return res
