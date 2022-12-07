@@ -11,7 +11,7 @@ permissions: {}
 jobs:
   candidate_release:
     outputs:
-      result: ${{ steps.github-release.outputs.result }}
+      id: ${{ steps.github-release.outputs.result.data.id }}
     name: Release candidate on Github for review
     runs-on: ubuntu-latest
     permissions:
