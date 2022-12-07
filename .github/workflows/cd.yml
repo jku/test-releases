@@ -43,4 +43,5 @@ jobs:
         uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0
         with:
           script: |
-            console.log('candidate result:  ${{ needs.candidate_release.outputs.result }}')
+            candidate_result=${{ needs.candidate_release.outputs.result }}
+            console.log(candidate_result.data.id)
