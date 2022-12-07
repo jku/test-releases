@@ -25,5 +25,6 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag_name: '${{ github.ref }}',
+              draft: true,
             });
             
