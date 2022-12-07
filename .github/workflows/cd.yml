@@ -10,6 +10,8 @@ permissions: {}
 
 jobs:
   candidate_release:
+    outputs:
+      result: ${{ steps.id.outputs.result }}
     name: Release candidate on Github for review
     runs-on: ubuntu-latest
     permissions:
@@ -21,11 +23,23 @@ jobs:
         uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0
         with:
           script: |
-            res = await github.rest.repos.createRelease({
+            github.rest.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag_name: '${{ github.ref }}',
               draft: true,
             });
-            console.log(res)
-            
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: candidate_release
+    permissions:
+      contents: write # to modify GitHub releases
+    steps:
+      - name: Finalize GitHub release
+        uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0
+        with:
+          script: |
+            console.log("${{ needs.candidate_release.outputs.result }}")
+            console.log("${{ needs.candidate_release.outputs.result.data.id }}")
