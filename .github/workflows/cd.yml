@@ -23,13 +23,19 @@ jobs:
         uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0
         with:
           script: |
+            fs = require('fs')
             res = await github.rest.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag_name: '${{ github.ref }}',
               draft: true,
             });
-            console.log(res)
+            await github.rest.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: res.data.id,
+              data: fs.readFileSync('dist/file1.txt'),
+            });
             return res
 
   release:
