@@ -44,4 +44,14 @@ jobs:
         with:
           script: |
             candidate_result=${{ needs.candidate_release.outputs.result }}
-            console.log(candidate_result.data.id)
+            release_id = candidate_result.data.id
+
+            await github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release_id,
+              draft: false,
+              body: 'See [CHANGELOG.md](https://github.com/' +
+                     context.repo.owner + '/' + context.repo.repo +
+                    '/blob/${{ github.ref_name }}/docs/CHANGELOG.md) for details.'
+            })
