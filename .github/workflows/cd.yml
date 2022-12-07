@@ -27,5 +27,5 @@ jobs:
               tag_name: '${{ github.ref }}',
               draft: true,
             });
-            print(res)
+            console.log(res)
             
