@@ -37,8 +37,9 @@ jobs:
               name: 'file1.txt',
               data: fs.readFileSync('dist/file1.txt'),
             });
-            // TODO unsure what happens when these rest calls fail 
-            // TODO the only output we need is res.data.id (the release id)
+            // TODO should call uploadReleaseAsset() for each file in dist
+            // TODO unsure what happens if these rest calls fail 
+            // TODO the only output we need in next job is res.data.id (the release id)
             return res
 
   release:
