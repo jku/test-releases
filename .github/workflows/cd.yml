@@ -32,7 +32,7 @@ jobs:
             });
             
             fs.readdirSync('dist/').forEach(file => {
-              await github.rest.repos.uploadReleaseAsset({
+              github.rest.repos.uploadReleaseAsset({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 release_id: res.data.id,
